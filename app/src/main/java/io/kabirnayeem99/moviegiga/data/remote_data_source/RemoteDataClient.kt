@@ -20,6 +20,10 @@ object RemoteDataClient {
             val url = chain.request()
                 .url().newBuilder().addQueryParameter("api_key", API_KEY).build()
             val request = chain.request().newBuilder().url(url).build()
+                                              
+            // A call to chain.proceed(request) is a critical part of each interceptor’s
+            // implementation. This simple-looking method is where all the HTTP work happens,
+            // producing a response to satisfy the request.                                 
             return@Interceptor chain.proceed(request)
         }
         val okHttpClient: OkHttpClient = OkHttpClient.Builder().addInterceptor(requestInterceptor)
